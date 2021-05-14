@@ -6,3 +6,7 @@ Implementation of famous (or common) algorithms and data structures.
 ## Data Structures
 - Classification of the data structures is taken from [this wiki.](https://en.wikipedia.org/wiki/List_of_data_structures)
 
+---
+TODOs
+- convert algorithms/... to use modules correctly.
+    - currently it is reusing main package
