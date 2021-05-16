@@ -16,7 +16,7 @@ func TestSort(t *testing.T) {
 	}
 
 	t.Logf("Source list %v, len %v\n", sourceList, len(sourceList))
-	selection.Sort(&sourceList)
+	selection.Sort(sourceList)
 	t.Logf("Sorted Source  list %v, len %v\n", sourceList, len(sourceList))
 	for i := range expected {
 		if expected[i] != sourceList[i] {
@@ -38,7 +38,7 @@ func TestSwapValues(t *testing.T) {
 		1,9,10,4,2,0,
 	}
 
-	selection.SwapValues(&sourceList, 2, 4)
+	selection.SwapValues(sourceList, 2, 4)
 
 	for i := range expected {
 		if expected[i] != sourceList[i] {
