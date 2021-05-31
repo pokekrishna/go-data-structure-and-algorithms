@@ -41,6 +41,12 @@ func sort(sourceList []int, startIndex int) error{
 }
 
 func SwapValues(sourceList []int, index1 int, index2 int){
+	if len(sourceList) == 0 {
+		return
+	}
+	if index1 == index2 {
+		return
+	}
 	(sourceList)[index2] += (sourceList)[index1]
 	(sourceList)[index1] = (sourceList)[index2] - (sourceList)[index1]
 	(sourceList)[index2] = (sourceList)[index2] - (sourceList)[index1]

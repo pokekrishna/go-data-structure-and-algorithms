@@ -38,16 +38,37 @@ func TestSwapValues(t *testing.T) {
 		1,9,10,4,2,0,
 	}
 
-	selection.SwapValues(sourceList, 2, 4)
-
-	for i := range expected {
-		if expected[i] != sourceList[i] {
-			t.Errorf("expected value '%d' at index %d but found '%d'",
-				expected[i], i, sourceList[i])
+	t.Run("simple swap", func(t *testing.T) {
+		selection.SwapValues(sourceList, 2, 4)
+		for i := range expected {
+			if expected[i] != sourceList[i] {
+				t.Errorf("expected value '%d' at index %d but found '%d'",
+					expected[i], i, sourceList[i])
+			}
 		}
-	}
+	})
 
-	t.Log("Swapped List.", sourceList)
+	t.Run("swap when swap indices are same", func(t *testing.T) {
+		expected = sourceList
+		selection.SwapValues(sourceList, 2, 2)
+		for i := range expected {
+			if expected[i] != sourceList[i] {
+				t.Errorf("expected value '%d' at index %d but found '%d'",
+					expected[i], i, sourceList[i])
+			}
+		}
+	})
 
+	t.Run("swap when lists are empty", func(t *testing.T) {
+		sourceList = []int{}
+		expected = []int{}
+		selection.SwapValues(sourceList, 0, 0)
+		for i := range expected {
+			if expected[i] != sourceList[i] {
+				t.Errorf("expected value '%d' at index %d but found '%d'",
+					expected[i], i, sourceList[i])
+			}
+		}
+	})
 
 }
