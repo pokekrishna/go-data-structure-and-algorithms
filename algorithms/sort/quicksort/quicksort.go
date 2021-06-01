@@ -1,46 +1,77 @@
 package quicksort
 
-import "github.com/pokekrishna/dsa/algorithms/sort/selection"
+import (
+	"fmt"
+	"github.com/pokekrishna/dsa/algorithms/sort/selection"
+)
+
+const debug = true
 
 func Sort(l []int) []int{
-
+	return sort(l)
 }
 
-func sort(l []int){
-	// p pivot index - choosing at half the length of the slice
+func sort(l []int) []int{
+	debugLn("current list", l)
 	ll := len(l)
+	if ll <= 1{
+		return l
+	}
+
+	// p pivot index - choosing at half the length of the slice
 	p := ll / 2
-
-
 
 	// pivot element, so that the l can reused as 'left partition'
 	// and pivot the element can be swapped forward in the index
 	// to make room.
 	pe := l[p]
+	debugLn("pivot element", pe)
 
-	// rpart is the right partition of the list. this will contain
-	// only the numbers which are greater than pivot element, pe.
-	//
-	// it is of fixed size because slice's append operation creates
-	// a new slice of double the length needed and also all the
-	// elements are copied everytime append reaches the limit
-	// of the slice
-	rPart := make([]int, ll-1, ll-1)
 	var elementsInRPart int = 0
 	dynamicLL := ll
 	for i := 0; i<dynamicLL; i++ {
-		// skip the processing on the element at pivot
-		if i == p{
-			continue
-		}
-
 		// right partition
 		if l[i] > pe {
-			rPart = append(rPart, l[i])
 			elementsInRPart ++
 			selection.SwapValues(l, i, ll-elementsInRPart)
 			i--
 			dynamicLL--
 		}
+	}
+
+	lPart := l[0:ll-elementsInRPart-1]
+	rPart := l[ll-elementsInRPart:ll]
+	debugLn("left", lPart)
+	debugLn("right", rPart)
+
+	// process left partition, then right partition
+	leftSorted := sort(lPart)
+	rightSorted := sort(rPart)
+	c := Concat(leftSorted, pe, rightSorted)
+	debugLn("returning", c)
+	return c
+}
+
+func Concat(leftSorted []int, pe int, rightSorted []int) []int {
+	debugLn("concatenating...", leftSorted, pe, rightSorted)
+	l := len(leftSorted) + len(rightSorted) + 1
+	combined := make([]int, l, l)
+	i := 0
+	for ; i < len(leftSorted); i++{
+		combined[i] = leftSorted[i]
+	}
+	combined[i] = pe
+	i++
+	for j := 0; j < len(rightSorted); j++{
+		combined[i] = rightSorted[j]
+		i++
+	}
+	debugLn("combined into ->", combined)
+	return combined
+}
+
+func debugLn(v ...interface{}){
+	if debug{
+		fmt.Println(v...)
 	}
 }
