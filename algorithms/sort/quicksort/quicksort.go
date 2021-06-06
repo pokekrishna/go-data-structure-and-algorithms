@@ -44,7 +44,13 @@ func sort(l []int) []int{
 	debugLn("pivot element", pe)
 
 	var elementsInRPart int = 0
+
+	// dynamicLL is short notation of `dynamic` list length. This is the
+	// pseudo length of the list which keeps decreasing by 1 whenever a
+	// swap happens in the list. The length `decreases` because once a
+	// number greater than the pivot element is swapped
 	dynamicLL := ll
+
 	for i := 0; i<dynamicLL; i++ {
 		// right partition
 		if l[i] > pe {
@@ -59,6 +65,7 @@ func sort(l []int) []int{
 	rPart := l[ll-elementsInRPart:ll]
 	debugLn("left", lPart)
 	debugLn("right", rPart)
+
 
 	// process left partition, then right partition
 	leftSorted := sort(lPart)
