@@ -6,28 +6,6 @@ import (
 	"testing"
 )
 
-func TestConcat(t *testing.T){
-	testcases := []struct{
-		left []int
-		pivotElement int
-		right []int
-		expected []int
-	}{
-		{left: []int{}, pivotElement: 0, right: []int{}, expected : []int{0}},
-		{left: []int{}, pivotElement: 1, right: []int{1}, expected: []int{1, 1}},
-		{left: []int{}, pivotElement: 1, right: []int{1, 2}, expected: []int{1, 1, 2}},
-	}
-
-	for i, tc := range testcases{
-		t.Run(fmt.Sprintf("case %d", i), func(t *testing.T) {
-			got := quicksort.Concat(tc.left, tc.pivotElement, tc.right)
-			if !assertEqual(got, tc.expected){
-				t.Errorf("got:%v, expected:%v", got, tc.expected)
-			}
-		})
-	}
-}
-
 func TestQuickSort(t *testing.T){
 	testcases := []struct{
 		input []int
