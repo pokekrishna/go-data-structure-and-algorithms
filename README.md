@@ -9,7 +9,7 @@ Implementation of common algorithms and data structures.
 ## Generate Random Numbers
 You may need a list of random numbers for sorting and especially for benchmarking the algorithms.
 Use the following script to generate sample data sets.
-```
+```Shell
 for i in `seq 1000`;\
 do od -An -N2 -i /dev/random | tr -s ' ' ' ' | tr -s '\n' ',' ;\
 done
