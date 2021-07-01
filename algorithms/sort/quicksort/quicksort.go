@@ -5,7 +5,7 @@ import (
 	"github.com/pokekrishna/dsa/algorithms/sort/selection"
 )
 
-const debug = true
+const debug = false
 // Sort takes in a slice of int and returns that same slice with the elements sorted
 // using Quicksort algorithm
 func Sort(l []int) []int{
@@ -31,40 +31,43 @@ func Sort(l []int) []int{
 // no return type of the function.
 func sort(l []int){
 	debugLn("current list", l)
+	// length of the current list
 	ll := len(l)
 	if ll <= 1{
 		return
 	}
 
-	// p pivot index - choosing at half the length of the slice
-	p := ll / 2
+	// pi pivot index - choosing at half the length of the slice
+	pi := ll / 2
+	pe := l[pi]
 
-	// pivot element, so that the l can reused as 'left partition'
-	// and pivot the element can be swapped forward in the index
-	// to make room.
-	pe := l[p]
 	debugLn("pivot element", pe)
 
-	var elementsInRPart int = 0
+	var lenRightPart int = 0
 
-	// dynamicLL is short notation of `dynamic` list length. This is the
-	// pseudo length of the list which keeps decreasing by 1 whenever a
-	// swap happens in the list. The length `decreases` because once a
-	// number greater than the pivot element is swapped
+	// TODO: dynamicLL is short notation of `dynamic` list length. Add description
 	dynamicLL := ll
 
 	for i := 0; i<dynamicLL; i++ {
-		// right partition
 		if l[i] > pe {
-			elementsInRPart ++
-			selection.SwapValues(l, i, ll-elementsInRPart)
+			// right partition
+			lenRightPart++
+			selection.SwapValues(l, i, ll-lenRightPart)
+			if ll-lenRightPart == pi{
+				pi = i
+			}
 			i--
 			dynamicLL--
+		} else if i > pi {
+			// Found an element less than pe but on the right of pivot pi, so swap the values
+			// and update the pivot index
+			selection.SwapValues(l, i, pi)
+			pi = i
 		}
 	}
 
-	lPart := l[0:ll-elementsInRPart-1]
-	rPart := l[ll-elementsInRPart:ll]
+	lPart := l[0:ll-lenRightPart-1]
+	rPart := l[ll-lenRightPart :ll]
 	debugLn("left", lPart)
 	debugLn("right", rPart)
 
