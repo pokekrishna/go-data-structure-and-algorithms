@@ -40,29 +40,32 @@ func sort(l []int){
 	// pi pivot index - choosing at half the length of the slice
 	pi := ll / 2
 	pe := l[pi]
-
 	debugLn("pivot element", pe)
 
 	var lenRightPart int = 0
 
-	// TODO: dynamicLL is short notation of `dynamic` list length. Add description
-	dynamicLL := ll
-
-	for i := 0; i<dynamicLL; i++ {
+	// traverse the list. Move items greater than pe to the right of pivot index pi.
+	// Move items less than pe to the left of pivot index pi. Make sure not traverse
+	// the Right Partition because it is already traversed essentially through the
+	// 'i--' statement and the loop var limit of (ll - lenRightPart).
+	//
+	// Whenever needed move the pivot index towards left or right, keeping the pivot
+	// element same throughout the loop, in order to have the left and right parition
+	// without using a separate list.
+	for i := 0; i < (ll-lenRightPart); i++ {
 		if l[i] > pe {
 			// right partition
 			lenRightPart++
 			selection.SwapValues(l, i, ll-lenRightPart)
 			if ll-lenRightPart == pi{
-				pi = i
-			}
-			i--
-			dynamicLL--
+				pi = i // move pi left
+ 			}
+			i-- // since the values have been swapped, re assess the new value at index i
 		} else if i > pi {
 			// Found an element less than pe but on the right of pivot pi, so swap the values
 			// and update the pivot index
 			selection.SwapValues(l, i, pi)
-			pi = i
+			pi = i // move pi right
 		}
 	}
 
