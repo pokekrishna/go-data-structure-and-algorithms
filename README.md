@@ -18,4 +18,5 @@ Currently, this script only produces _randomized_ list and not the sorted list t
 
 ---
 TODOs
-- convert algorithms/... to use modules correctly. Currently it is reusing main package
+- convert algorithms/... to use modules correctly. Currently it is reusing main package. This will help someone to use
+the packages in her packages
