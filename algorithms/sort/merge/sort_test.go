@@ -17,6 +17,10 @@ func TestQuickSort(t *testing.T) {
 			expected: []int{1,2,3,4,5,6,7,8},
 		},
 		{
+			input:    []int{38,27,43,3,9,82,10},
+			expected: []int{3,9,10,27,38,43,82},
+		},
+		{
 			input:    []int{1, 10, 2, 1, 9, 0},
 			expected: []int{0, 1, 1, 2, 9, 10},
 		},

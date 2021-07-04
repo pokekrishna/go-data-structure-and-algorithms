@@ -2,7 +2,6 @@ package merge
 
 import (
 	"fmt"
-	"github.com/pokekrishna/dsa/algorithms/sort/selection"
 )
 
 const debug = true
@@ -25,16 +24,21 @@ func merge(l []int, low, high int){
 	merge(l, low, (low+high)/2)
 	merge(l, (low+high)/2, high)
 
-	fmt.Printf("low %d, (low+high)/2 %d, high %d\n", low, (low+high)/2, high)
-	for i, j := low, (low+high)/2; i < (low+high)/2 && j < high; {
+	debugLn(fmt.Sprintf("low %d, (low+high)/2 %d, high %d\n", low, (low+high)/2, high))
+	for i, j := low, (low+high)/2; i < j && j < high; i ++{
 		debugLn("l[i]", l[i])
 		debugLn("l[j]", l[j])
 		if l[i] < l [j] {
-			debugLn("swapping", l[i], "and", l[j])
-			selection.SwapValues(l, i, j)
-			i++
+			debugLn("l[i] is already smaller than l[j]. doing nothing. i++")
 		} else if l [j] < l[i]{
-
+			debugLn("inserting l[j] at i, do shifting")
+			key := l[j]
+			for k := j; k > i; k --{
+				l[k]=l[k-1]
+			}
+			l[i] = key
+			j++
+			debugLn("after shifting", l)
 		}
 	}
 }
