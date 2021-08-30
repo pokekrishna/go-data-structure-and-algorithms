@@ -3,29 +3,22 @@ package singlylinkedlist
 import "fmt"
 
 type Node struct {
-	Item interface{}
-	next *Node
+	Data interface{}
+	Next *Node
 }
 
-func Append(tail *Node, item *Node) error {
-	if tail == nil {
-		return fmt.Errorf("tail is nil")
+func CreateDummy() {
+	var prev *Node = nil
+	for i := 10; i > 0; i-- {
+		prev  = &Node{i, prev}
 	}
-	if item == nil{
-		return fmt.Errorf("item to append is nil")
-	}
-	tail.next = item
-	return nil
+
+	traverse(prev)
 }
 
-func Traverse(head *Node) error {
-	// TODO: complete implementation
-	return nil
-}
-
-func (n *Node) Next() *Node{
-	if n != nil{
-		return n.next
+func traverse(head *Node) {
+	for n := head; n != nil; n =  n.Next {
+		fmt.Print(n.Data, "->")
 	}
-	return nil
+	fmt.Println("\\0")
 }
